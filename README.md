@@ -138,6 +138,13 @@ npm run preview
 npm run lint
 ```
 
+npm run build
+
+npm install -g pm2 serve
+
+pm2 start serve --name dash-app -- -s dist -l 2001
+
+
 ### Nuxt 3.x integration
 
 This dashboard can be integrated with Nuxt 3.x. [Check guide](https://github.com/justboil/Beauty Online-admin/tree/master/.nuxt-guide) for more information

@@ -10,7 +10,7 @@ import {
   mdiAccountAlertOutline,
   mdiGamepadCircle,
   mdiBell,
-  mdiBellRing
+  mdiBellRing,
 } from "@mdi/js";
 import SectionMain from "@/components/SectionMain.vue";
 import NotificationBar from "@/components/NotificationBar.vue";
@@ -96,16 +96,16 @@ function setAction4(user) {
   message.value = "";
 }
 
-const sendWelcomeNotifications = async (userId) => {
+async function sendWelcomeNotifications(userId) {
   loadingUpdate.value = true;
   const response = await request.sendWelcomeNotifications(userId);
   loadingUpdate.value = false;
   if (response.status) toast.success("Notification envoyée");
-};
+}
 
 const sendPersonnalNotifications = async () => {
   loadingUpdate.value = true;
-  const response = await request.sendGeneraleNotifications({
+  const response = await request.sendPersonnalNotifications({
     message: message.value,
     userId: _seletUser.value.id,
   });
@@ -149,7 +149,9 @@ const sendGeneraleNotifications = async () => {
     v-model="isModalPersonalNotif"
     title="Notification Personnalisée"
   >
-    <p>Envoyer une notification à <b>{{ _seletUser.nom }}</b></p>
+    <p>
+      Envoyer une notification à <b>{{ _seletUser.nom }}</b>
+    </p>
     <textarea
       v-model="message"
       placeholder="Votre message ici..."
@@ -217,17 +219,18 @@ const sendGeneraleNotifications = async () => {
               <td class="whitespace-nowrap">
                 <BaseButtons>
                   <BaseButton
-                    color="warning"
-                    :icon="mdiLock"
-                    small
-                    @click="setAction3(user)"
-                  />
-                  <BaseButton
                     :color="!user.status ? 'danger' : 'info'"
                     :icon="mdiAccountAlertOutline"
                     small
                     @click="setAction2(user)"
                   />
+                  <BaseButton
+                    :color="!user.status ? 'danger' : 'info'"
+                    :icon="mdiAccountAlertOutline"
+                    small
+                    @click="sendWelcomeNotifications(user)"
+                  />
+
                   <BaseButton
                     :icon="mdiBellRing"
                     color="success"
