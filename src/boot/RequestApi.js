@@ -41,7 +41,7 @@ export class RequestApi {
     let dataRes = { status: true, data: [] };
 
     await api
-      .get(this.ApiEndPoint.notifcation_welcom + "/userId=" + userId)
+      .get(this.ApiEndPoint.notifcation_welcom + "?userId=" + userId)
       .then(async () => {
         dataRes = {
           status: true,
@@ -79,7 +79,7 @@ export class RequestApi {
     let dataRes = { status: true, data: [] };
 
     await api
-      .patch(this.ApiEndPoint.notifcation_user, data)
+      .post(this.ApiEndPoint.notifcation_user, data)
       .then(async () => {
         dataRes = {
           status: true,
