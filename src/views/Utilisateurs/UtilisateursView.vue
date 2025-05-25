@@ -227,8 +227,9 @@ const sendGeneraleNotifications = async () => {
                   <BaseButton
                     :color="!user.status ? 'danger' : 'info'"
                     :icon="mdiAccountAlertOutline"
+                    :loading="loadingUpdate"
                     small
-                    @click="sendWelcomeNotifications(user)"
+                    @click="sendWelcomeNotifications(user.id)"
                   />
 
                   <BaseButton
